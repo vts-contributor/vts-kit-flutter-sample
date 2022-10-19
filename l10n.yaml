@@ -1,0 +1,14 @@
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+#output-dir: lib/localizations/generated
+output-localization-file: app.dart
+output-class: AppLocalizations
+#synthetic-package: false
+
+#2 options output-dir va synthetic-package
+#Tat: thi luu app.dart trong .dart_tool/flutter_gen/gen_l10n
+# + Uu diem: khong can commit -> han che conflict code trong file app.dart
+# + Nhuoc diem: phai chay lenh 'flutter gen-l10n' khi mo project
+#Bat: thi luu app.dart trong lib/localizations/generated tuong tu
+# + Uu diem: mo project co san class AppLocalizations trong app.dart
+# + Nhuoc diem: phai commit luon ca app.dart, app_en.dart, app_vi.dart kem theo code -> co the quen + de conflict

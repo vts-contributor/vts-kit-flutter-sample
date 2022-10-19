@@ -1,0 +1,11 @@
+// **************************************************************************
+// ResourceGenerator
+// **************************************************************************
+
+const samplePackage = 'sample';
+
+abstract class IconRes {
+  static const info = 'res/icons/info.png';
+}
+
+abstract class ImageRes {}

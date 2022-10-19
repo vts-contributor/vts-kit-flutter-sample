@@ -1,0 +1,17 @@
+targets:
+  $default:
+    builders:
+      resource_generator|resourceGeneratorBuilder:
+        enabled: True
+        generate_for:
+          - lib/res.dart
+#Chay lenh 'flutter pub run build_runner build --delete-conflicting-outputs' se chay generate resources cho ung dung
+#Cau truc co dinh:
+#/res
+# /fonts
+# /icons
+# /images
+#Sau khi generate resource co the commit hoac ignore file res.g.dart va res.res.g.part (tuong tu l10n.yaml)
+#Mac dinh: commit
+
+#Neu khong su dung thi remove /res, /lib/res.dart, /build.yaml, module resource_generator va dependency build_runner trong /pubspec.yaml
