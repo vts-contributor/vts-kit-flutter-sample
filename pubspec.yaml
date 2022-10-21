@@ -41,12 +41,9 @@ dev_dependencies:
     sdk: flutter
   flutter_core:
     git:
-      url: http://10.60.156.11/gpmn/framework/flutter
+      url: https://github.com/vts-contributor/vts-kit-flutter-core.git
       ref: develop
-  resource_generator:
-    git:
-      url: http://10.60.156.11/gpmn/framework/resource_generator.git
-      ref: develop
+  
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

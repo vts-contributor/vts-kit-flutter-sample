@@ -548,15 +548,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  resource_generator:
-    dependency: "direct dev"
-    description:
-      path: "."
-      ref: develop
-      resolved-ref: "6479f7c8520e5f668dfdbe93c4ab743b11b45d51"
-      url: "http://10.60.156.11/gpmn/framework/resource_generator.git"
-    source: git
-    version: "0.0.1"
   rxdart:
     dependency: transitive
     description:
@@ -639,13 +630,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  source_gen:
-    dependency: transitive
-    description:
-      name: source_gen
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.5"
   source_span:
     dependency: transitive
     description:
