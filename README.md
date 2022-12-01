@@ -7,7 +7,7 @@ A template Flutter project.
 1. Clone project
 
 ```shell
-git clone http://10.60.156.11/gpmn/framework/flutter-sample.git
+git clone https://github.com/vts-contributor/vts-kit-flutter-sample.git
 ```
 
 2. Run app <br>
