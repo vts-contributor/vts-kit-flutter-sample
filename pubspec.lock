@@ -396,8 +396,8 @@ packages:
     description:
       path: "."
       ref: develop
-      resolved-ref: db1ea5c09d717ba14fa8a33f898b6d2e1607384b
-      url: "http://10.60.156.11/gpmn/framework/flutter"
+      resolved-ref: "96c6c44c047a9f53a968b9477b62968f1f59502c"
+      url: "https://github.com/vts-contributor/vts-kit-flutter-core.git"
     source: git
     version: "1.0.0+1"
   flutter_datetime_picker:
