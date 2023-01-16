@@ -1,3 +1,22 @@
 {
-  "hello": "Hello"
-}
+  "hello": "Hello",
+  "email": "Email",
+  "password": "Password",
+  "logIn": "Log in",
+  "logOut": "Log out",
+  "forgetPassword": "Forget Password ?",
+  "forgetPasswordDes": "Please enter your email and we will send you instructions",
+  "send": "Send",
+  "verifyCode": "Verify Code",
+  "verifyCodeDes": "Please enter verify code that was sent to your email",
+  "continueStr": "Continue",
+  "notReceiveMail": "you haven't received mail yet ?",
+  "sendAnotherCode": "Send another",
+  "resetPassword": "Reset Password",
+  "enterNewPassword": "Enter new password",
+  "reEnterPassword": "Re-enter password",
+  "kEmailNullError": "Please enter email",
+  "kPassNullError": "Please enter password",
+  "kMatchPassError": "Password is not match"
+  }
+ 
