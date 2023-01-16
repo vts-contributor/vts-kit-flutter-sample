@@ -1,21 +1,3 @@
 {
-  "hello": "Xin chào",
-  "email": "Email",
-  "password": "Mật khẩu",
-  "logIn": "Đăng nhập",
-  "logOut": "Đăng xuất",
-  "forgetPassword": "Quên mật khẩu ?",
-  "forgetPasswordDes": "Vui lòng nhập email và chúng tôi sẽ gửi hướng dẫn cho bạn",
-  "send": "Gửi",
-  "verifyCode": "Mã xác thực",
-  "verifyCodeDes": "Vui lòng nhập mã xác thực đã được gửi tới mail của bạn",
-  "continueStr": "Tiếp tục",
-  "notReceiveMail": "Bạn chưa nhận được mail ?",
-  "sendAnotherCode": "Gửi lại 1 lần nữa",
-  "resetPassword": "Đặt lại mật khẩu",
-  "enterNewPassword": "Nhập mật khẩu mới",
-  "reEnterPassword": "Nhập lại mật khẩu",
-  "kEmailNullError": "Vui lòng nhập email",
-  "kPassNullError": "Vui lòng mật khẩu",
-  "kMatchPassError": "Mật khẩu không khớp"
-  }
+  "hello": "Xin chào"
+}
