@@ -1,44 +1,40 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_core/localizations/localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:sample/firebase_options.dart';
 import 'package:sample/l10n/supportLocale.dart';
-import 'package:sample/notifications/firebase_controller.dart';
-import 'package:sample/notifications/notifications_controller.dart';
+import 'package:sample/pages/notifications/notification_service.dart';
 import 'package:sample/provider/localeProvider.dart';
-import 'package:sample/routes/routes.dart';
 import 'package:sample/routes/routes.gr.dart';
 
 import 'package:sample/theme.dart';
 
-//String initialRoute = SPLASH_SCREEN;
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  //firebase push notification
-  AwesomeNotifications().createNotificationFromJsonData(message.data);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  print('Handling a background message ${message.messageId}');
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Setting for firebase initial
   ////////////////////////////////////////////////////////////////
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await FirebaseMessaging.instance.getInitialMessage();
   await FirebaseMessaging.instance.getNotificationSettings();
   await FirebaseMessaging.instance.getToken();
-  await NotificationsController.initializeLocalNotifications();
-  await NotificationsController.startListeningNotificationEvents();
-  //////////////////////////////////////////////////////////////////
-
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    NotificationsController.createNewNotification(message);
-    AwesomeNotifications().createNotificationFromJsonData(message.data);
-  });
+
+  //////////////////////////////////////
   String? token = await FirebaseMessaging.instance.getToken();
 
   print("token: " + token.toString());
@@ -51,18 +47,26 @@ final appRouter = AppRouter();
 class MyMainApp extends StatefulWidget {
   const MyMainApp({Key? key}) : super(key: key);
   static final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   State<MyMainApp> createState() => _MyMainAppState();
 }
 
 class _MyMainAppState extends State<MyMainApp> {
+  String mtoken = "";
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
   // This widget is the root of your application.
 
   @override
   void initState() {
     super.initState();
-    FirebaseController().navigateToPageOnBackground(
-        const BottomNavBar(children: [UsersRouter()]));
+    getToken();
+    NotificationService().requestPermissionToSendNotifications();
+    NotificationService().initNotification();
+    NotificationService().initInfo();
+    NotificationService().setupInteractedMessage();
   }
 
   @override
@@ -99,5 +103,19 @@ class _MyMainAppState extends State<MyMainApp> {
         );
       },
     );
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mtoken = token ?? "";
+      });
+    });
+  }
+
+  void saveToken(String token) async {
+    await FirebaseFirestore.instance.collection("UserTokens").doc("User1").set({
+      'token': token,
+    });
   }
 }

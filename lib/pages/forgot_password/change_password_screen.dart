@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:sample/constants/colors.dart';
@@ -39,7 +37,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               SizedBox(height: 40.h),
               Text(
                 AppLocalizations.of(context)!.resetPassword,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
