@@ -18,17 +18,15 @@ import 'package:sample/theme.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  NotificationService().initInfo();
+  print('Handling a background message ${message.messageId}');
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  //Setting for firebase initial
-  ////////////////////////////////////////////////////////////////
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await FirebaseMessaging.instance.getInitialMessage();
   await FirebaseMessaging.instance.getNotificationSettings();
   await FirebaseMessaging.instance.getToken();
@@ -37,7 +35,6 @@ Future<void> main() async {
     badge: true,
     sound: true,
   );
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   //////////////////////////////////////
   String? token = await FirebaseMessaging.instance.getToken();
@@ -70,7 +67,7 @@ class _MyMainAppState extends State<MyMainApp> {
     NotificationService().requestPermissionToSendNotifications();
     NotificationService().initNotification();
     NotificationService().initInfo();
-    NotificationService().setupInteractedMessage();
+    //NotificationService().setupInteractedMessage();
   }
 
   @override
