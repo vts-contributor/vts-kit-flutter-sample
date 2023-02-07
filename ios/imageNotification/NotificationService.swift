@@ -1,11 +1,12 @@
 //
 //  NotificationService.swift
-//  imageNotification
+//  ImageNotification
 //
 //  Created by hiep pham on 06/02/2023.
 //
 
 import UserNotifications
+import "FirebaseMessaging.h"
 
 class NotificationService: UNNotificationServiceExtension {
 
@@ -18,9 +19,7 @@ class NotificationService: UNNotificationServiceExtension {
         
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification content here...
-            bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
-            
-            contentHandler(bestAttemptContent)
+            [[FIRMessaging extensionHelper] populateNotificationContent:self.bestAttemptContent withContentHandler:contentHandler];
         }
     }
     

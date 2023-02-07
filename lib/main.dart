@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +18,12 @@ import 'package:sample/theme.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  print('Handling a background message ${message.messageId}');
+  NotificationService().initInfo();
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   //Setting for firebase initial
   ////////////////////////////////////////////////////////////////
   await Firebase.initializeApp(
@@ -32,6 +32,11 @@ Future<void> main() async {
   await FirebaseMessaging.instance.getInitialMessage();
   await FirebaseMessaging.instance.getNotificationSettings();
   await FirebaseMessaging.instance.getToken();
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   //////////////////////////////////////
@@ -62,7 +67,6 @@ class _MyMainAppState extends State<MyMainApp> {
   @override
   void initState() {
     super.initState();
-    getToken();
     NotificationService().requestPermissionToSendNotifications();
     NotificationService().initNotification();
     NotificationService().initInfo();
@@ -105,17 +109,7 @@ class _MyMainAppState extends State<MyMainApp> {
     );
   }
 
-  void getToken() async {
-    await FirebaseMessaging.instance.getToken().then((token) {
-      setState(() {
-        mtoken = token ?? "";
-      });
-    });
-  }
-
-  void saveToken(String token) async {
-    await FirebaseFirestore.instance.collection("UserTokens").doc("User1").set({
-      'token': token,
-    });
-  }
+  // void listenNotification() => NotificationService.onNotifications.stream
+  //     .listen((onClickedNotification) {});
+  // void onClickedNotification (String?)
 }

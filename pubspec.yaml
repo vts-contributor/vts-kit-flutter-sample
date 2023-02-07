@@ -59,7 +59,9 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   provider: ^6.0.5
   shared_preferences: ^2.0.15
-  
+  path_provider: ^2.0.12
+  rxdart: ^0.27.7
+
 
 dev_dependencies:
   flutter_test:
