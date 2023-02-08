@@ -13,21 +13,21 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.sample</string>
+	<string>com.example.sample11223344</string>
 	<key>PROJECT_ID</key>
 	<string>vts-flutter-sample</string>
 	<key>STORAGE_BUCKET</key>
 	<string>vts-flutter-sample.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:749082258747:ios:c1e9ecb5ca2e21d6f59b1e</string>
 </dict>

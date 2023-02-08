@@ -13,6 +13,7 @@ import 'package:sample/routes/routes.gr.dart';
 
 const String notificationPage = "notification_page";
 const String dashboardPage = "dashboard_page";
+const String messageDataKey = "click_action";
 
 class NotificationService {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
@@ -105,7 +106,7 @@ class NotificationService {
         print("messageId: " + message.messageId.toString());
         print("messageTitle: " + message.notification!.title.toString());
         print("messageContent: " + message.notification!.body.toString());
-        if (message.data.keys.contains("click_action")) {
+        if (message.data.keys.contains(messageDataKey)) {
           print("This is a payload: " + message.data.values.toString());
         }
         showNotification(message);
@@ -113,14 +114,24 @@ class NotificationService {
     );
     //notification while the app is in the background state
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      _handleMessage(const BottomNavBar(children: [NotificationsRouter()]));
+      _redirectNotification(message);
     });
     //notification while the app is in the terminated state
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
-        _handleMessage(const BottomNavBar(children: [NotificationsRouter()]));
+        _redirectNotification(message);
       }
     });
+  }
+
+  void _redirectNotification(RemoteMessage message) {
+    if (message.data.keys.contains(messageDataKey)) {
+      if (message.data.values.contains(dashboardPage)) {
+        _handleMessage(const BottomNavBar(children: [DashboardRouter()]));
+      } else if (message.data.values.contains(notificationPage)) {
+        _handleMessage(const BottomNavBar(children: [NotificationsRouter()]));
+      }
+    }
   }
 
   void _handleMessage(PageRouteInfo<dynamic> route) {
@@ -211,7 +222,7 @@ class NotificationService {
       message.notification?.title ?? "",
       message.notification?.body ?? "",
       platformChannelSpecifics,
-      //payload: "",
+      payload: message.data['click_action'],
     );
   }
 
