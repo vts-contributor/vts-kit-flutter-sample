@@ -17,7 +17,7 @@ class _NotificationPageState extends State<NotificationPage> {
           Card(
             child: Container(
               padding: const EdgeInsets.all(10),
-              child: Column(children: [const Text("Notification Here")]),
+              child: Column(children: const [Text("Notification Here")]),
             ),
           )
         ]),
