@@ -1,13 +1,7 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sample/main.dart';
-import 'package:sample/pages/dashboard/dashboard_screen.dart';
 
 void lockScreenPortrait() {
   SystemChrome.setPreferredOrientations([
@@ -50,7 +44,7 @@ String printDuration(Duration? duration) {
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
 
-void loadSingletonPage(PageRouteInfo<dynamic> route,
-    {required ReceivedAction receivedAction}) {
-  appRouter.push(route);
-}
+// void loadSingletonPage(PageRouteInfo<dynamic> route,
+//     {required ReceivedAction receivedAction}) {
+//   appRouter.push(route);
+// }

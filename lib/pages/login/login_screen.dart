@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,8 +8,6 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 import 'package:sample/constants/colors.dart';
 import 'package:sample/helper/helper.dart';
-import 'package:sample/main.dart';
-import 'package:sample/notifications/notifications_controller.dart';
 import 'package:sample/provider/localeProvider.dart';
 import 'package:sample/routes/routes.gr.dart';
 import 'package:sample/widgets/default_button.dart';
@@ -66,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
       DeviceOrientation.portraitUp,
     ]);
 
-    NotificationsController.startListeningNotificationEvents();
+    //NotificationsController.startListeningNotificationEvents();
     _loadCacheLocalization();
     keyboardSubscription =
         KeyboardVisibilityController().onChange.listen((isVisible) {

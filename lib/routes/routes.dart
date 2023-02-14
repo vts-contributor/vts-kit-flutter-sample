@@ -6,6 +6,7 @@ import 'package:sample/pages/forgot_password/change_password_screen.dart';
 import 'package:sample/pages/forgot_password/code_form_screen.dart';
 import 'package:sample/pages/forgot_password/email_form_screen.dart';
 import 'package:sample/pages/login/login_screen.dart';
+import 'package:sample/pages/notifications/notification_page.dart';
 import 'package:sample/pages/posts/posts_page.dart';
 import 'package:sample/pages/posts/single_post_page.dart';
 import 'package:sample/pages/settings/settings_page.dart';
@@ -41,6 +42,12 @@ import 'package:sample/pages/users/users_page.dart';
             AutoRoute(path: '', page: UsersPage),
             AutoRoute(path: ':userId', page: UserProfilePage),
           ],
+        ),
+        AutoRoute(
+          path: 'notifications',
+          name: 'NotificationsRouter',
+          page: NotificationPage,
+          initial: false,
         ),
         AutoRoute(
           path: 'settings',

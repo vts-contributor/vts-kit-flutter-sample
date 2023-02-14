@@ -20,6 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         DashboardRouter(),
         UsersRouter(),
         PostsRouter(),
+        NotificationsRouter(),
         SettingsRouter(),
       ],
       bottomNavigationBuilder: (context, tabsRouter) {
@@ -54,6 +55,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   size: 30,
                 ),
                 title: const Text('Post'),
+              ),
+              SalomonBottomBarItem(
+                selectedColor: AppColors.kPrimaryColor,
+                icon: const Icon(
+                  Icons.notifications_outlined,
+                  size: 30,
+                ),
+                title: const Text('Noti'),
               ),
               SalomonBottomBarItem(
                 selectedColor: AppColors.kPrimaryColor,
