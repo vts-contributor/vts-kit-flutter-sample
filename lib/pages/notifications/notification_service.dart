@@ -7,7 +7,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/subjects.dart';
 import 'package:sample/main.dart';
 import 'package:sample/routes/routes.gr.dart';
 
@@ -18,7 +17,7 @@ const String messageDataKey = "click_action";
 class NotificationService {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  static final onNotifications = BehaviorSubject<String?>();
+
   Future<void> subscribeToTopic(String topic) async {
     await FirebaseMessaging.instance.subscribeToTopic(topic);
   }
