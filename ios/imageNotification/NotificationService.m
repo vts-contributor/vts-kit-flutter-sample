@@ -20,7 +20,9 @@
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-    
+    // Modify the notification content here as you wish
+    self.bestAttemptContent.title = [NSString stringWithFormat:@"%@ [modified]",
+    self.bestAttemptContent.title];
     // Modify the notification content here...
     [[FIRMessaging extensionHelper] populateNotificationContent:self.bestAttemptContent withContentHandler:contentHandler];
 }
