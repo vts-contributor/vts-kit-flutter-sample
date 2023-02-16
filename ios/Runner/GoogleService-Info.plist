@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>749082258747-q81a6cfd9qrgrqhtrfgvrg6g2c49q5fo.apps.googleusercontent.com</string>
+	<string>749082258747-svqtvtikkdmsjlnhhvrbt0upi6aas7pl.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.749082258747-q81a6cfd9qrgrqhtrfgvrg6g2c49q5fo</string>
+	<string>com.googleusercontent.apps.749082258747-svqtvtikkdmsjlnhhvrbt0upi6aas7pl</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC9fq2f2WmUZjQu6AYVw2aD6___Wi4UCzQ</string>
 	<key>GCM_SENDER_ID</key>
@@ -19,16 +19,16 @@
 	<key>STORAGE_BUCKET</key>
 	<string>vts-flutter-sample.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:749082258747:ios:c1e9ecb5ca2e21d6f59b1e</string>
+	<string>1:749082258747:ios:f7c6fac6d20eff59f59b1e</string>
 </dict>
 </plist>
