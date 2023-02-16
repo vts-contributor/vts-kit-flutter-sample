@@ -27,6 +27,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await FirebaseMessaging.instance.requestPermission();
   await FirebaseMessaging.instance.getInitialMessage();
   await FirebaseMessaging.instance.getNotificationSettings();
   await FirebaseMessaging.instance.getToken();

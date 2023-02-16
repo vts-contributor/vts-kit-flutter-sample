@@ -1,12 +1,12 @@
 //
 //  NotificationService.m
-//  ImageNotification
+//  FirebaseNotificationServiceExtension
 //
-//  Created by hiep pham on 08/02/2023.
+//  Created by hiep pham on 16/02/2023.
 //
 
 #import "NotificationService.h"
-#import "FirebaseMessaging.h"
+@import Firebase;
 
 @interface NotificationService ()
 
@@ -20,11 +20,13 @@
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-    // Modify the notification content here as you wish
-    self.bestAttemptContent.title = [NSString stringWithFormat:@"%@ [modified]",
+    
+    self.bestAttemptContent.title = [NSString stringWithFormat:@"%@",
     self.bestAttemptContent.title];
-    // Modify the notification content here...
-    [[FIRMessaging extensionHelper] populateNotificationContent:self.bestAttemptContent withContentHandler:contentHandler];
+
+  // Call FIRMessaging extension helper API.
+  [[FIRMessaging extensionHelper] populateNotificationContent:self.bestAttemptContent
+                                            withContentHandler:contentHandler];
 }
 
 - (void)serviceExtensionTimeWillExpire {
