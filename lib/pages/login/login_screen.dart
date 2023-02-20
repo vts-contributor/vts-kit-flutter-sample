@@ -28,12 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailController = new TextEditingController();
 
   TextEditingController _passwordController = TextEditingController();
+  final imagePath = "assets/images/viettel_logo.png";
+
   late StreamSubscription<bool> keyboardSubscription;
   bool _showPass = true;
   bool _visibleKeyboard = false;
   bool _loginTap = false;
   String message = "";
-
   int? segmentedControlGroupValue = 0;
   Future<void> _loadCacheLocalization() async {
     final prefs = await SharedPreferences.getInstance();
@@ -58,30 +59,26 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
-
-    //NotificationsController.startListeningNotificationEvents();
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitDown,
+    //   DeviceOrientation.portraitUp,
+    // ]);
     _loadCacheLocalization();
     keyboardSubscription =
         KeyboardVisibilityController().onChange.listen((isVisible) {
       _visibleKeyboard = isVisible;
     });
-    // FirebaseMessaging.instance.getInitialMessage().then((value) =>
-    //     appRouter.push(const BottomNavBar(children: [UsersRouter()])));
   }
 
   @override
   void dispose() {
     keyboardSubscription.cancel();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.landscapeRight,
+    //   DeviceOrientation.landscapeLeft,
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
     super.dispose();
   }
 
@@ -111,25 +108,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           thumbColor: AppColors.kPrimaryColor,
                           groupValue: segmentedControlGroupValue,
                           children: {
-                            0: Container(
-                              child: Text(
-                                "Tiếng Việt",
-                                style: TextStyle(
-                                    color: segmentedControlGroupValue == 1
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
+                            0: Text(
+                              "Tiếng Việt",
+                              style: TextStyle(
+                                  color: segmentedControlGroupValue == 1
+                                      ? Colors.black
+                                      : Colors.white,
+                                  fontWeight: FontWeight.w500),
                             ),
-                            1: Container(
-                              child: Text(
-                                "English",
-                                style: TextStyle(
-                                    color: segmentedControlGroupValue == 1
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.w500),
-                              ),
+                            1: Text(
+                              "English",
+                              style: TextStyle(
+                                  color: segmentedControlGroupValue == 1
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w500),
                             ),
                           },
                           onValueChanged: (i) async {
@@ -204,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget buildLogo() {
     return Center(
       child: Image.asset(
-        'assets/images/viettel_logo.png',
+        imagePath,
         fit: BoxFit.fitWidth,
         height: 150.h,
       ),

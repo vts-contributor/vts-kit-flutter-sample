@@ -11,17 +11,23 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Card(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(children: const [Text("Notification Here")]),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Card(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(children: const [Text("Notification Here")]),
+                  ),
+                ),
+              ],
             ),
-          )
-        ]),
-      )),
+          ),
+        ),
+      ),
     );
   }
 }

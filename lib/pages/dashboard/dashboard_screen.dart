@@ -45,6 +45,26 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
     );
   }
 
+  @override
+  Widget tabletLandscapeBody(BuildContext context, Size size) {
+    return tabletScreenLandscape(context);
+  }
+
+  @override
+  Widget tabletPortraitBody(BuildContext context, Size size) {
+    return tabletScreenPortrait(context);
+  }
+
+  @override
+  Widget landscapeBody(BuildContext context, Size size) {
+    return phoneScreenLandscape(context);
+  }
+
+  @override
+  Widget portraitBody(BuildContext context, Size size) {
+    return phoneScreenPortrait(context);
+  }
+
   Widget titleChart(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 25, bottom: 15),
@@ -228,7 +248,7 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
             titleChart("Column Chart"),
             ColumnChartWidget(
                 chartData: chartData3,
-                aspectRatio: 15 / 2,
+                aspectRatio: 1 / 2,
                 orientation: LegendItemOrientation.vertical,
                 position: LegendPosition.right,
                 height: '20%'),
@@ -312,25 +332,5 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
         ),
       ),
     );
-  }
-
-  @override
-  Widget tabletLandscapeBody(BuildContext context, Size size) {
-    return tabletScreenLandscape(context);
-  }
-
-  @override
-  Widget tabletPortraitBody(BuildContext context, Size size) {
-    return tabletScreenPortrait(context);
-  }
-
-  @override
-  Widget landscapeBody(BuildContext context, Size size) {
-    return phoneScreenLandscape(context);
-  }
-
-  @override
-  Widget portraitBody(BuildContext context, Size size) {
-    return phoneScreenPortrait(context);
   }
 }

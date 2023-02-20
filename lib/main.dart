@@ -68,7 +68,6 @@ class _MyMainAppState extends State<MyMainApp> {
     NotificationService().requestPermissionToSendNotifications();
     NotificationService().initNotification();
     NotificationService().initInfo();
-    //NotificationService().setupInteractedMessage();
   }
 
   @override
@@ -106,8 +105,4 @@ class _MyMainAppState extends State<MyMainApp> {
       },
     );
   }
-
-  // void listenNotification() => NotificationService.onNotifications.stream
-  //     .listen((onClickedNotification) {});
-  // void onClickedNotification (String?)
 }
