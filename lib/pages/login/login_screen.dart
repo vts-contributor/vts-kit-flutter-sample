@@ -8,6 +8,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 import 'package:sample/constants/colors.dart';
 import 'package:sample/helper/helper.dart';
+import 'package:sample/main.dart';
 import 'package:sample/provider/localeProvider.dart';
 import 'package:sample/routes/routes.gr.dart';
 import 'package:sample/widgets/default_button.dart';
@@ -59,10 +60,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.portraitDown,
-    //   DeviceOrientation.portraitUp,
-    // ]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     _loadCacheLocalization();
     keyboardSubscription =
         KeyboardVisibilityController().onChange.listen((isVisible) {
@@ -73,12 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     keyboardSubscription.cancel();
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.landscapeRight,
-    //   DeviceOrientation.landscapeLeft,
-    //   DeviceOrientation.portraitUp,
-    //   DeviceOrientation.portraitDown,
-    // ]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.dispose();
   }
 
@@ -103,42 +104,48 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      CupertinoSlidingSegmentedControl(
-                          backgroundColor: AppColors.colorDADCE6,
-                          thumbColor: AppColors.kPrimaryColor,
-                          groupValue: segmentedControlGroupValue,
-                          children: {
-                            0: Text(
-                              "Tiếng Việt",
-                              style: TextStyle(
-                                  color: segmentedControlGroupValue == 1
-                                      ? Colors.black
-                                      : Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            1: Text(
-                              "English",
-                              style: TextStyle(
-                                  color: segmentedControlGroupValue == 1
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          },
-                          onValueChanged: (i) async {
-                            segmentedControlGroupValue = i;
-                            if (segmentedControlGroupValue == 0) {
-                              await _saveCacheLocalization();
-                              context
-                                  .read<LocaleProvider>()
-                                  .setLocale(const Locale("vi"));
-                            } else if (segmentedControlGroupValue == 1) {
-                              await _saveCacheLocalization();
-                              context
-                                  .read<LocaleProvider>()
-                                  .setLocale(const Locale("en"));
-                            }
-                          }),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CupertinoSlidingSegmentedControl(
+                            backgroundColor: AppColors.colorDADCE6,
+                            thumbColor: AppColors.kPrimaryColor,
+                            groupValue: segmentedControlGroupValue,
+                            children: {
+                              0: Text(
+                                "Tiếng Việt",
+                                style: TextStyle(
+                                    color: segmentedControlGroupValue == 1
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              1: Text(
+                                "English",
+                                style: TextStyle(
+                                    color: segmentedControlGroupValue == 1
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            },
+                            onValueChanged: (i) async {
+                              segmentedControlGroupValue = i;
+                              if (segmentedControlGroupValue == 0) {
+                                await _saveCacheLocalization();
+                                context.read<LocaleProvider>().setLocale(
+                                      const Locale("vi"),
+                                    );
+                              } else if (segmentedControlGroupValue == 1) {
+                                await _saveCacheLocalization();
+                                context.read<LocaleProvider>().setLocale(
+                                      const Locale("en"),
+                                    );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 7,
                       ),

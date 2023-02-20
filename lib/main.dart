@@ -71,6 +71,11 @@ class _MyMainAppState extends State<MyMainApp> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => LocaleProvider(),

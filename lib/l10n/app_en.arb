@@ -10,7 +10,7 @@
   "verifyCode": "Verify Code",
   "verifyCodeDes": "Please enter verify code that was sent to your email",
   "continueStr": "Continue",
-  "notReceiveMail": "you haven't received mail yet ?",
+  "notReceiveMail": "you haven't received mail yet? ",
   "sendAnotherCode": "Send another",
   "resetPassword": "Reset Password",
   "enterNewPassword": "Enter new password",
