@@ -16,6 +16,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     const double iconSize = 30;
     const double textSize = 15;
+    Color selectedColor = Theme.of(context).primaryColor;
     return AutoTabsScaffold(
       backgroundColor: AppColors.colorF0F5F9,
       routes: const [
@@ -35,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             onTap: tabsRouter.setActiveIndex,
             items: [
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.home_outlined,
                   size: iconSize,
@@ -46,7 +47,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.person_outlined,
                   size: iconSize,
@@ -57,7 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.post_add_outlined,
                   size: iconSize,
@@ -68,7 +69,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.notifications_outlined,
                   size: iconSize,
@@ -79,7 +80,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.settings,
                   size: iconSize,

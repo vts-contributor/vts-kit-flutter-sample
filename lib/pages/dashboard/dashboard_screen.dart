@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:sample/pages/dashboard/components/column_chart_widget.dart';
 import 'package:sample/pages/dashboard/components/doughnut_chart_widget.dart';
 import 'package:sample/pages/dashboard/components/pyramid_chart_widget.dart';
@@ -92,8 +92,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -105,8 +105,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '40%',
               radius: '85%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -118,8 +118,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '40%',
               radius: '85%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Column Chart"),
             ColumnChartWidget(
@@ -128,8 +128,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 orientation: LegendItemOrientation.vertical,
                 position: LegendPosition.bottom,
                 height: '80%'),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Pyramid Chart"),
             PyramidChartWidget(
@@ -139,8 +139,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 position: LegendPosition.bottom,
                 height: '40%',
                 chartHeight: '100%'),
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
           ],
         ),
@@ -154,8 +154,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -167,8 +167,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '20%',
               radius: '70%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -180,8 +180,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '20%',
               radius: '70%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Column Chart"),
             ColumnChartWidget(
@@ -190,8 +190,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 orientation: LegendItemOrientation.vertical,
                 position: LegendPosition.right,
                 height: '20%'),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Pyramid Chart"),
             PyramidChartWidget(
@@ -201,8 +201,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 position: LegendPosition.right,
                 height: '40%',
                 chartHeight: '70%'),
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
           ],
         ),
@@ -216,8 +216,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -229,8 +229,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '80%',
               radius: '90%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -242,8 +242,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '80%',
               radius: '90%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Column Chart"),
             ColumnChartWidget(
@@ -252,8 +252,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 orientation: LegendItemOrientation.vertical,
                 position: LegendPosition.right,
                 height: '20%'),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Pyramid Chart"),
             PyramidChartWidget(
@@ -263,8 +263,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 position: LegendPosition.right,
                 height: '40%',
                 chartHeight: '80%'),
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
           ],
         ),
@@ -278,8 +278,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -291,8 +291,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '80%',
               radius: '90%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Doughnut Chart"),
             DoughnutChartWidget(
@@ -304,8 +304,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
               height: '80%',
               radius: '90%',
             ),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Column Chart"),
             ColumnChartWidget(
@@ -314,8 +314,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 orientation: LegendItemOrientation.horizontal,
                 position: LegendPosition.bottom,
                 height: '50%'),
-            SizedBox(
-              height: 20.h,
+            const SizedBox(
+              height: 20,
             ),
             titleChart("Pyramid Chart"),
             PyramidChartWidget(
@@ -325,8 +325,8 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
                 position: LegendPosition.bottom,
                 height: '40%',
                 chartHeight: '80%'),
-            SizedBox(
-              height: 30.h,
+            const SizedBox(
+              height: 30,
             ),
           ],
         ),

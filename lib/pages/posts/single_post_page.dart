@@ -15,7 +15,7 @@ class SinglePostPage extends StatelessWidget {
     final post = Post.posts[postId - 1];
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.kPrimaryColor,
+        // backgroundColor: AppColors.kPrimaryColor,
         leading: const AutoLeadingButton(),
       ),
       backgroundColor: post.color,

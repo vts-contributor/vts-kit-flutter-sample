@@ -16,7 +16,7 @@ class UserProfilePage extends StatelessWidget {
     final user = User.users[userId - 1];
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.kPrimaryColor,
+        // backgroundColor: AppColors.kPrimaryColor,
         leading: const AutoLeadingButton(),
       ),
       backgroundColor: user.color,

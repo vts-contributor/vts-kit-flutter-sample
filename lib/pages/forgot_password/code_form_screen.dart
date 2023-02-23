@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:pinput/pinput.dart';
@@ -32,7 +32,7 @@ class _CodeFormScreenState extends State<CodeFormScreen> {
             child: SingleChildScrollView(
                 child: Column(
               children: [
-                SizedBox(height: 20.h),
+                const SizedBox(height: 20),
                 Text(
                   AppLocalizations.of(context)!.verifyCode,
                   style: const TextStyle(
@@ -41,13 +41,13 @@ class _CodeFormScreenState extends State<CodeFormScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 2.h),
+                const SizedBox(height: 2),
                 Text(
                   AppLocalizations.of(context)!.verifyCodeDes,
                   textAlign: TextAlign.center,
                 ),
                 buildPinPut(),
-                SizedBox(height: 4.h),
+                const SizedBox(height: 4),
                 DefaultButton(
                   width: double.infinity,
                   text: AppLocalizations.of(context)!.continueStr.toUpperCase(),
@@ -55,7 +55,7 @@ class _CodeFormScreenState extends State<CodeFormScreen> {
                     context.pushRoute(const ResetPassRouter());
                   },
                 ),
-                SizedBox(height: 10.h),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

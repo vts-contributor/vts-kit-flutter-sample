@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:sample/constants/colors.dart';
 
@@ -18,12 +17,12 @@ class DefaultButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: 50.h,
+      height: 50,
       child: TextButton(
         style: TextButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: AppColors.kPrimaryColor,
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         onPressed: press as void Function()?,
         child: Text(

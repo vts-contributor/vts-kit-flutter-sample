@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:sample/constants/colors.dart';
 import 'package:sample/constants/pattern_constants.dart';
@@ -34,7 +33,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           child: SingleChildScrollView(
               child: Column(
             children: [
-              SizedBox(height: 40.h),
+              SizedBox(height: 40),
               Text(
                 AppLocalizations.of(context)!.resetPassword,
                 style: const TextStyle(
@@ -43,9 +42,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 20),
               changePassForm(context),
-              SizedBox(height: 20.h),
+              SizedBox(height: 20),
               DefaultButton(
                 width: double.infinity,
                 text: AppLocalizations.of(context)!.continueStr.toUpperCase(),
@@ -119,7 +118,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       key: _keyForm,
       child: Column(
         children: [
-          SizedBox(height: 10.h),
+          SizedBox(height: 10),
           textNewPassword(context,
               controllerText: _passwordController,
               suffixIcon: InkWell(
@@ -128,10 +127,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: _showPass
                       ? Icon(
                           Icons.visibility,
-                          color: AppColors.kPrimaryColor,
+                          color: Theme.of(context).primaryColor,
                         )
                       : Icon(Icons.visibility_off,
-                          color: AppColors.kPrimaryColor),
+                          color: Theme.of(context).primaryColor),
                 ),
                 onTap: () {
                   setState(() {
@@ -140,7 +139,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 },
               ),
               obscureText: _showPass),
-          SizedBox(height: 20.h),
+          SizedBox(height: 20),
           textFieldRePassword(context,
               controllerText: _rePasswordController,
               suffixIcon: InkWell(
@@ -149,10 +148,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: _showRePass
                       ? Icon(
                           Icons.visibility,
-                          color: AppColors.kPrimaryColor,
+                          color: Theme.of(context).primaryColor,
                         )
                       : Icon(Icons.visibility_off,
-                          color: AppColors.kPrimaryColor),
+                          color: Theme.of(context).primaryColor),
                 ),
                 onTap: () {
                   setState(() {

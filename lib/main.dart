@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -5,15 +7,16 @@ import 'package:flutter_core/localizations/localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:sample/firebase_options.dart';
 import 'package:sample/l10n/supportLocale.dart';
 import 'package:sample/pages/notifications/notification_service.dart';
-import 'package:sample/provider/localeProvider.dart';
+import 'package:sample/pages/settings/setting_getx_controller.dart';
 import 'package:sample/routes/routes.gr.dart';
+import 'package:sample/theme/theme.dart';
 
-import 'package:sample/theme.dart';
+import 'package:sample/theme/theme_getx_controller.dart';
+import 'package:sample/utils/cache/cache_getx_controller.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -39,9 +42,14 @@ Future<void> main() async {
 
   //////////////////////////////////////
   String? token = await FirebaseMessaging.instance.getToken();
-
   print("token: " + token.toString());
+  /////////////////////////////////////
+  Get.lazyPut(() => SettingGetX(), tag: SettingGetX.tag);
+  Get.lazyPut(() => CacheGetx(), tag: CacheGetx.tag);
+  Get.lazyPut(() => ThemeGetX(), tag: ThemeGetX.tag);
 
+  await _getLocale();
+  await _getTheme();
   runApp(const MyMainApp());
 }
 
@@ -60,7 +68,6 @@ class _MyMainAppState extends State<MyMainApp> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  // This widget is the root of your application.
 
   @override
   void initState() {
@@ -70,44 +77,69 @@ class _MyMainAppState extends State<MyMainApp> {
     NotificationService().initInfo();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LocaleProvider(),
-      builder: (context, child) {
-        return Consumer<LocaleProvider>(
-          builder: (context, provider, child) {
-            return ScreenUtilInit(
-              designSize: const Size(360, 690),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              builder: (context, child) {
-                return MaterialApp.router(
-                  title: 'Flutter Demo',
-                  theme: theme(),
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate, //ung dung
-                    CoreLocalizations.delegate, //mac dinh cua thu vien
-                    ExternalLocalizations.delegate, //da ngon ngu tu file .json
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  locale: provider.locale,
-                  supportedLocales: L10n.support,
-                  routerDelegate: appRouter.delegate(),
-                  routeInformationParser: appRouter.defaultRouteParser(),
-                );
-              },
-            );
-          },
-        );
-      },
-    );
+    SettingGetX languageGetX = Get.find(tag: SettingGetX.tag);
+    ThemeGetX themeGetX = Get.find<ThemeGetX>(tag: ThemeGetX.tag);
+    return Obx(() {
+      return MaterialApp.router(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: themeGetX.themeGetx.value,
+        localizationsDelegates: const [
+          AppLocalizations.delegate, //ung dung
+          CoreLocalizations.delegate, //mac dinh cua thu vien
+          ExternalLocalizations.delegate, //da ngon ngu tu file .json
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: languageGetX.localeGetx.value,
+        supportedLocales: L10n.support,
+        routerDelegate: appRouter.delegate(),
+        routeInformationParser: appRouter.defaultRouteParser(),
+      );
+    });
+  }
+}
+
+Future _getLocale() async {
+  final cacheGetx = Get.find<CacheGetx>(tag: CacheGetx.tag);
+  final settingGetX = Get.find<SettingGetX>(tag: SettingGetX.tag);
+  await cacheGetx.loadFromDisk();
+
+  if (cacheGetx.locale.isNotEmpty) {
+    if (cacheGetx.locale == 'vi') {
+      settingGetX.localeGetx.value = const Locale('vi');
+    } else {
+      settingGetX.localeGetx.value = const Locale('en');
+    }
+  } else {
+    if (Platform.localeName.toLowerCase() == 'vi_vn'.toLowerCase()) {
+      settingGetX.localeGetx.value = const Locale('vi');
+    } else {
+      settingGetX.localeGetx.value = const Locale('en');
+    }
+  }
+}
+
+Future _getTheme() async {
+  final cacheGetx = Get.find<CacheGetx>(tag: CacheGetx.tag);
+  final ThemeGetX themeGetX = Get.find<ThemeGetX>(tag: ThemeGetX.tag);
+  await cacheGetx.loadFromDisk();
+  String theme = cacheGetx.theme.toString();
+  if (theme.isNotEmpty) {
+    if (theme == "primary_theme") {
+      themeGetX.themeGetx.value = primaryTheme;
+    } else if (theme == "secondary_theme") {
+      themeGetX.themeGetx.value = secondaryTheme;
+    }
+  } else {
+    themeGetX.themeGetx.value = primaryTheme;
   }
 }
