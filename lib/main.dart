@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:sample/constants/image_constants.dart';
 import 'package:sample/firebase_options.dart';
 import 'package:sample/l10n/supportLocale.dart';
 import 'package:sample/pages/notifications/notification_service.dart';
@@ -86,25 +88,34 @@ class _MyMainAppState extends State<MyMainApp> {
   Widget build(BuildContext context) {
     SettingGetX languageGetX = Get.find(tag: SettingGetX.tag);
     ThemeGetX themeGetX = Get.find<ThemeGetX>(tag: ThemeGetX.tag);
-    return Obx(() {
-      return MaterialApp.router(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: themeGetX.themeGetx.value,
-        localizationsDelegates: const [
-          AppLocalizations.delegate, //ung dung
-          CoreLocalizations.delegate, //mac dinh cua thu vien
-          ExternalLocalizations.delegate, //da ngon ngu tu file .json
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        locale: languageGetX.localeGetx.value,
-        supportedLocales: L10n.support,
-        routerDelegate: appRouter.delegate(),
-        routeInformationParser: appRouter.defaultRouteParser(),
-      );
-    });
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AnimatedSplashScreen(
+        splash: ImagePath.splashIcon,
+        centered: true,
+        splashIconSize: 300,
+        animationDuration: const Duration(seconds: 3),
+        splashTransition: SplashTransition.fadeTransition,
+        nextScreen: Obx(() {
+          return MaterialApp.router(
+            title: 'Flutter Demo',
+            theme: themeGetX.themeGetx.value,
+            localizationsDelegates: const [
+              AppLocalizations.delegate, //ung dung
+              CoreLocalizations.delegate, //mac dinh cua thu vien
+              ExternalLocalizations.delegate, //da ngon ngu tu file .json
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            locale: languageGetX.localeGetx.value,
+            supportedLocales: L10n.support,
+            routerDelegate: appRouter.delegate(),
+            routeInformationParser: appRouter.defaultRouteParser(),
+          );
+        }),
+      ),
+    );
   }
 }
 
