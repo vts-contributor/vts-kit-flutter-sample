@@ -13,6 +13,7 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     final user = User.users[userId - 1];
     return Scaffold(
       appBar: AppBar(

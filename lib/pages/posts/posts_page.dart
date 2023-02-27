@@ -17,6 +17,7 @@ class _PostsPageState extends State<PostsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return SingleChildScrollView(
       child: SafeArea(
         child: Center(

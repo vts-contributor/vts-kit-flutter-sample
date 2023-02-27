@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_core/extensions/extensions.dart';
@@ -40,9 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _showPass = true;
   bool _visibleKeyboard = false;
   bool _loginTap = false;
-  bool switchValue = false;
+  bool _switchValue = false;
   String message = "";
   int? segmentedControlGroupValue = 0;
+  ///////////////////////
+
   @override
   initState() {
     super.initState();
@@ -72,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return KeyboardDismisser(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -262,21 +264,21 @@ class _LoginScreenState extends State<LoginScreen> {
         ThemeData? theme = themeGetX.themeGetx.value;
         if (theme.isNotNull) {
           if (theme == primaryTheme) {
-            switchValue = true;
+            _switchValue = true;
           } else if (theme == secondaryTheme) {
-            switchValue = false;
+            _switchValue = false;
           }
         } else {
-          switchValue = true;
+          _switchValue = true;
         }
         return CupertinoSwitch(
           activeColor: AppColors.kPrimaryColor,
           //thumbColor: CupertinoColors.activeOrange,
           trackColor: AppColors.color1f89de,
-          value: switchValue,
+          value: _switchValue,
           onChanged: (value) async {
             setState(() {
-              switchValue = value;
+              _switchValue = value;
             });
             if (value == true) {
               themeGetX.themeGetx.value = primaryTheme;

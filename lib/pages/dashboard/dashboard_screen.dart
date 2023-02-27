@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart' as auto_route;
 import 'package:flutter/material.dart';
 
 import 'package:sample/pages/dashboard/components/column_chart_widget.dart';
@@ -38,6 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
   ];
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return Scaffold(
       body: SafeArea(
         child: adaptiveBody(context),

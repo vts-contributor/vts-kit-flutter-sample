@@ -13,6 +13,7 @@ class SinglePostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final post = Post.posts[postId - 1];
+    print(context.router.currentPath);
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: AppColors.kPrimaryColor,

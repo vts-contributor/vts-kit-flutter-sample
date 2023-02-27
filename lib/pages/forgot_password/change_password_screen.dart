@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:sample/constants/colors.dart';
@@ -23,6 +24,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool _check = true;
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return KeyboardDismisser(
         child: Scaffold(
       body: SafeArea(

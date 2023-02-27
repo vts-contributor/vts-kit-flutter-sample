@@ -22,6 +22,7 @@ class _CodeFormScreenState extends State<CodeFormScreen> {
   String? keyCode;
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return KeyboardDismisser(
       child: Scaffold(
         body: SafeArea(

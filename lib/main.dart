@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:flutter_core/localizations/localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -19,6 +21,7 @@ import 'package:sample/theme/theme.dart';
 
 import 'package:sample/theme/theme_getx_controller.dart';
 import 'package:sample/utils/cache/cache_getx_controller.dart';
+import 'package:sample/utils/dynamic_link.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -44,8 +47,9 @@ Future<void> main() async {
 
   //////////////////////////////////////
   String? token = await FirebaseMessaging.instance.getToken();
-  print("token: " + token.toString());
+  print("FCMToken: " + token.toString());
   /////////////////////////////////////
+  FlutterBranchSdk.validateSDKIntegration();
   Get.lazyPut(() => SettingGetX(), tag: SettingGetX.tag);
   Get.lazyPut(() => CacheGetx(), tag: CacheGetx.tag);
   Get.lazyPut(() => ThemeGetX(), tag: ThemeGetX.tag);
@@ -66,10 +70,19 @@ class MyMainApp extends StatefulWidget {
 }
 
 class _MyMainAppState extends State<MyMainApp> {
-  String mtoken = "";
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  //////////////////////////
+  BranchContentMetaData metadata = BranchContentMetaData();
+  BranchUniversalObject? buo;
+  BranchLinkProperties lp = BranchLinkProperties();
+  BranchEvent? eventStandart;
+  BranchEvent? eventCustom;
+
+  StreamSubscription<Map>? streamSubscription;
+  StreamController<String> controllerData = StreamController<String>();
+  StreamController<String> controllerInitSession = StreamController<String>();
 
   @override
   void initState() {
@@ -77,12 +90,17 @@ class _MyMainAppState extends State<MyMainApp> {
     NotificationService().requestPermissionToSendNotifications();
     NotificationService().initNotification();
     NotificationService().initInfo();
+    ///////////////////
+    DynamicLinkHandler.shared.initDeepLinkData();
+    DynamicLinkHandler.shared.listenDynamicLinks();
+    FlutterBranchSdk.setIdentity('branch_user_test');
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    DynamicLinkHandler.shared.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,12 +116,13 @@ class _MyMainAppState extends State<MyMainApp> {
         splashTransition: SplashTransition.fadeTransition,
         nextScreen: Obx(() {
           return MaterialApp.router(
-            title: 'Flutter Demo',
+            title: 'VTS-Kit Demo',
+            debugShowCheckedModeBanner: false,
             theme: themeGetX.themeGetx.value,
             localizationsDelegates: const [
-              AppLocalizations.delegate, //ung dung
-              CoreLocalizations.delegate, //mac dinh cua thu vien
-              ExternalLocalizations.delegate, //da ngon ngu tu file .json
+              AppLocalizations.delegate,
+              CoreLocalizations.delegate,
+              ExternalLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,

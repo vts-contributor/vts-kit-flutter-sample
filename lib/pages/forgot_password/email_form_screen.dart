@@ -19,6 +19,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
   TextEditingController _emailController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return KeyboardDismisser(
       child: Scaffold(
         appBar: AppBar(),
