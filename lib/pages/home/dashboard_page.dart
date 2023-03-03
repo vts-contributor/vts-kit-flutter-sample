@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart' as auto_route;
 import 'package:flutter/material.dart';
 
-import 'package:sample/pages/dashboard/components/column_chart_widget.dart';
-import 'package:sample/pages/dashboard/components/doughnut_chart_widget.dart';
-import 'package:sample/pages/dashboard/components/pyramid_chart_widget.dart';
+import 'package:sample/pages/home/components/column_chart_widget.dart';
+import 'package:sample/pages/home/components/doughnut_chart_widget.dart';
+import 'package:sample/pages/home/components/pyramid_chart_widget.dart';
 import 'package:flutter_core/difference_screens/mixin_adaptive_page.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> with AdaptivePage {
   ];
   @override
   Widget build(BuildContext context) {
-    print(context.router.currentPath);
+    print("path: " + context.router.currentPath);
     return Scaffold(
       body: SafeArea(
         child: adaptiveBody(context),

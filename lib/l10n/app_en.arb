@@ -17,6 +17,8 @@
   "reEnterPassword": "Re-enter password",
   "kEmailNullError": "Please enter email",
   "kPassNullError": "Please enter password",
-  "kMatchPassError": "Password is not match"
+  "kMatchPassError": "Password is not match",
+  "kPageNotFound": "Page Not Found!",
+  "errorText": "We're sorry, the page you requested could not be found. Please go back!"
   }
  

@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sample/main.dart';
-import 'package:sample/pages/notifications/notification_service.dart';
-import 'package:sample/routes/routes.gr.dart';
+import 'package:sample/routes/routes_handler.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DynamicLinkHandler {
   DynamicLinkHandler._();
@@ -22,8 +23,6 @@ class DynamicLinkHandler {
   StreamSubscription<Map>? streamSubscription;
   StreamController<String> controllerData = StreamController<String>();
   StreamController<String> controllerInitSession = StreamController<String>();
-  static const imageURL =
-      'https://raw.githubusercontent.com/RodrigoSMarques/flutter_branch_sdk/master/assets/branch_logo_qrcode.jpeg';
 
   void dispose() {
     controllerData.close();
@@ -33,12 +32,8 @@ class DynamicLinkHandler {
 
   // Initial deeplink
   void initDeepLinkData() {
-    metadata = BranchContentMetaData()
-      ..addCustomMetadata('custom_string', 'hello from other side!!!!');
-    // ..addCustomMetadata('custom_number', 12345)
-    // ..addCustomMetadata('custom_bool', true)
-    // ..addCustomMetadata('custom_list_number', [1, 2, 3, 4, 5])
-    // ..addCustomMetadata('custom_list_string', ['a', 'b', 'c'])
+    // metadata = BranchContentMetaData()
+    //   ..addCustomMetadata('path', 'bottomNavBar/settings');
     //--optional Custom Metadata
 
     buo = BranchUniversalObject(
@@ -50,16 +45,7 @@ class DynamicLinkHandler {
         // even if the user goes to the app instead of your website! This will help your SEO efforts.
         canonicalUrl: 'https://flutter.dev',
         title: 'Flutter Branch Plugin',
-        //imageUrl: imageURL,
         contentDescription: 'Flutter Branch Description',
-        /*
-        contentMetadata: BranchContentMetaData()
-          ..addCustomMetadata('custom_string', 'abc')
-          ..addCustomMetadata('custom_number', 12345)
-          ..addCustomMetadata('custom_bool', true)
-          ..addCustomMetadata('custom_list_number', [1, 2, 3, 4, 5])
-          ..addCustomMetadata('custom_list_string', ['a', 'b', 'c']),
-         */
         contentMetadata: metadata,
         publiclyIndex: true,
         locallyIndex: true,
@@ -74,40 +60,11 @@ class DynamicLinkHandler {
       //Instead of our standard encoded short url, you can specify the vanity alias.
       // For example, instead of a random string of characters/integers, you can set the vanity alias as *.app.link/devonaustin.
       // Aliases are enforced to be unique** and immutable per domain, and per link - they cannot be reused unless deleted.
-      //alias: 'https://branch.io' //define link url,
       stage: 'new share',
       campaign: 'campaign',
+
       //tags: ['one', 'two', 'three'],
     );
-    // ..addControlParam('\$uri_redirect_mode', '1')
-    // ..addControlParam('\$ios_nativelink', true)
-    // ..addControlParam('\$match_duration', 7200)
-    // ..addControlParam('\$always_deeplink', true)
-    // ..addControlParam('\$android_redirect_timeout', 750)
-    // ..addControlParam('referring_user_id', 'user_id');
-
-    // eventStandart = BranchEvent.standardEvent(BranchStandardEvent.ADD_TO_CART)
-    //   //--optional Event data
-    //   ..transactionID = '12344555'
-    //   ..currency = BranchCurrencyType.BRL
-    //   ..revenue = 1.5
-    //   ..shipping = 10.2
-    //   ..tax = 12.3
-    //   ..coupon = 'test_coupon'
-    //   ..affiliation = 'test_affiliation'
-    //   ..eventDescription = 'Event_description'
-    //   ..searchQuery = 'item 123'
-    //   ..adType = BranchEventAdType.BANNER
-    //   ..addCustomData(
-    //       'Custom_Event_Property_Key1', 'Custom_Event_Property_val1')
-    //   ..addCustomData(
-    //       'Custom_Event_Property_Key2', 'Custom_Event_Property_val2');
-
-    // eventCustom = BranchEvent.customEvent('Custom_event')
-    //   ..addCustomData(
-    //       'Custom_Event_Property_Key1', 'Custom_Event_Property_val1')
-    //   ..addCustomData(
-    //       'Custom_Event_Property_Key2', 'Custom_Event_Property_val2');
   }
 
   //Listen to dynamic link when user tap on it!
@@ -117,22 +74,35 @@ class DynamicLinkHandler {
       controllerData.sink.add((data.toString()));
       if (data.containsKey('+clicked_branch_link') &&
           data['+clicked_branch_link'] == true) {
-        if (data['path'] != null) {
-          appRouter.navigateNamed(data['path']);
-        }
+        final path = data['path'].toString();
+        RoutesHandler.shared.redirectRoute(path);
       }
     }, onError: (error) {
       print('InitSesseion error: ${error.toString()}');
     });
   }
 
-  void generateLink(BuildContext context) async {
+  void generateLink(BuildContext context, String path) async {
     BranchResponse response = await FlutterBranchSdk.getShortUrl(
       buo: buo!,
-      linkProperties: lp,
+      linkProperties: lp..addControlParam("path", path),
     );
+
     if (response.success) {
       showGeneratedLink(context, response.result);
+    } else {
+      showSnackBar(
+          message: 'Error : ${response.errorCode} - ${response.errorMessage}');
+    }
+  }
+
+  void shareLink(BuildContext context, String path) async {
+    BranchResponse response = await FlutterBranchSdk.getShortUrl(
+      buo: buo!,
+      linkProperties: lp..addControlParam("path", path),
+    );
+    if (response.success) {
+      Share.share(response.result);
     } else {
       showSnackBar(
           message: 'Error : ${response.errorCode} - ${response.errorMessage}');
@@ -147,7 +117,7 @@ class DynamicLinkHandler {
         builder: (_) {
           return Container(
             padding: const EdgeInsets.all(12),
-            height: 200,
+            height: 500,
             child: Column(
               children: <Widget>[
                 const Center(
@@ -160,6 +130,11 @@ class DynamicLinkHandler {
                   height: 10,
                 ),
                 Text(url),
+                QrImage(
+                  data: url,
+                  version: QrVersions.auto,
+                  size: 300,
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -217,5 +192,33 @@ class CustomButton extends StatelessWidget {
           onPressed: onPressed,
           child: child,
         ));
+  }
+}
+
+class CustomButton2 extends StatelessWidget {
+  const CustomButton2(
+      {Key? key,
+      required this.onPressed,
+      required this.icon,
+      required this.iconColor,
+      required this.label})
+      : super(key: key);
+  final Function()? onPressed;
+  final Icon icon;
+  final Widget label;
+  final MaterialStateProperty<Color?>? iconColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+        iconColor: iconColor,
+      ),
+      onPressed: onPressed,
+      icon: icon,
+      label: label,
+    );
   }
 }

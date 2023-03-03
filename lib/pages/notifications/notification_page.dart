@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:sample/constants/colors.dart';
 import 'package:sample/utils/dynamic_link.dart';
 
 class NotificationPage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(context.router.currentPath);
+    print("path: " + context.router.currentPath);
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -39,14 +40,15 @@ class _NotificationPageState extends State<NotificationPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: CustomButton(
-                        onPressed: () =>
-                            _dynamicLinkHandler.generateLink(context),
-                        child: const Text('Generate Link',
-                            textAlign: TextAlign.center),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: CustomButton(
+                    //     onPressed: () =>
+                    //         _dynamicLinkHandler.generateLink(context),
+                    //     child: const Text('Generate Link',
+                    //         textAlign: TextAlign.center),
+                    //   ),
+                    // ),
+
                     // Expanded(
                     //   child: CustomButton(
                     //     onPressed: () => _dynamicLinkHandler.generateQrCode(context),

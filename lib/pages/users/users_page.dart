@@ -14,7 +14,7 @@ class UsersPage extends StatefulWidget {
 class _UsersPageState extends State<UsersPage> {
   @override
   Widget build(BuildContext context) {
-    print(context.router.currentPath);
+    print("path: " + context.router.currentPath);
     final users = User.users;
     return Scaffold(
       body: SingleChildScrollView(

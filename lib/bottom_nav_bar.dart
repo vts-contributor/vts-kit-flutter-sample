@@ -4,14 +4,9 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:sample/constants/colors.dart';
 import 'package:sample/routes/routes.gr.dart';
 
-class BottomNavBar extends StatefulWidget {
+class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
 
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     const double iconSize = 30;
