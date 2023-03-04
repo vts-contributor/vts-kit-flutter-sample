@@ -7,13 +7,17 @@ class RoutesHandler {
   final String errorPath = "error";
   void redirectRoute(String path) {
     try {
-      appRouter.pushNamed(
-        path,
-        includePrefixMatches: true,
-        onFailure: (failure) {
-          redirectToErrorPage();
-        },
-      );
+      if (path.isNotEmpty) {
+        appRouter.pushNamed(
+          path,
+          includePrefixMatches: true,
+          onFailure: (failure) {
+            redirectToErrorPage();
+          },
+        );
+      } else {
+        appRouter.pushNamed('/');
+      }
     } on Exception catch (exception) {
       print(exception);
       redirectToErrorPage();
