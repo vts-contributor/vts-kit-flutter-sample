@@ -1,5 +1,4 @@
 import 'package:sample/main.dart';
-import 'package:sample/routes/routes.gr.dart';
 
 class RoutesHandler {
   RoutesHandler._();

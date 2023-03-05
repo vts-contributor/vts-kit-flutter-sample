@@ -9,7 +9,7 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double iconSize = 30;
+    const double iconSize = 25;
     const double textSize = 15;
     Color selectedColor = Theme.of(context).primaryColor;
     return AutoTabsScaffold(

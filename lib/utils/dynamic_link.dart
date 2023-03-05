@@ -78,7 +78,7 @@ class DynamicLinkHandler {
         RoutesHandler.shared.redirectRoute(path);
       }
     }, onError: (error) {
-      print('InitSesseion error: ${error.toString()}');
+      print('InitSession error: ${error.toString()}');
     });
   }
 

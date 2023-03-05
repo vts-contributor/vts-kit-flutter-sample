@@ -1,16 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:auto_route/auto_route.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sample/main.dart';
-import 'package:sample/routes/routes.gr.dart';
 import 'package:sample/routes/routes_handler.dart';
 
-const String notificationPage = "notification_page";
-const String dashboardPage = "dashboard_page";
 const String messageDataKey = "click_action";
 
 class NotificationService {

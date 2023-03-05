@@ -34,30 +34,30 @@ class _NotificationPageState extends State<NotificationPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Expanded(
-                    //   child: CustomButton(
-                    //     onPressed: () =>
-                    //         _dynamicLinkHandler.generateLink(context),
-                    //     child: const Text('Generate Link',
-                    //         textAlign: TextAlign.center),
-                    //   ),
-                    // ),
+                // SizedBox(
+                //   height: 50,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Expanded(
+                //       child: CustomButton(
+                //         onPressed: () =>
+                //             _dynamicLinkHandler.generateLink(context),
+                //         child: const Text('Generate Link',
+                //             textAlign: TextAlign.center),
+                //       ),
+                //     ),
 
-                    // Expanded(
-                    //   child: CustomButton(
-                    //     onPressed: () => _dynamicLinkHandler.generateQrCode(context),
-                    //     child: const Text('Generate QrCode',
-                    //         textAlign: TextAlign.center),
-                    //   ),
-                    // ),
-                  ],
-                ),
+                //     Expanded(
+                //       child: CustomButton(
+                //         onPressed: () => _dynamicLinkHandler.generateQrCode(context),
+                //         child: const Text('Generate QrCode',
+                //             textAlign: TextAlign.center),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
