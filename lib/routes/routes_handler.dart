@@ -5,6 +5,7 @@ class RoutesHandler {
   static final RoutesHandler shared = RoutesHandler._();
   final String errorPath = "error";
   void redirectRoute(String path) {
+    print("Redirect Path - Deep link: " + path);
     try {
       if (path.isNotEmpty) {
         appRouter.pushNamed(

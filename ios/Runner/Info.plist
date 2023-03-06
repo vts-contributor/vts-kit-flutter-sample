@@ -58,5 +58,30 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>branch_universal_link_domains&lt;</key>
+	<array>
+		<string>bhdy9.app.link</string>
+		<string>bhdy9-alternate.app.link</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.example.sample</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.example.sample</string>
+		</dict>
+	</array>
+	<key>branch_key</key>
+	<dict>
+		<key>live</key>
+		<string>key_live_fxbhcEhky1ELx3jWMaYcvfjeFygdGdO5</string>
+		<key>secret</key>
+		<string>secret_live_D1BtAndYj4LJb3YYKvDuAb6CNlRj5NJW</string>
+	</dict>
 </dict>
 </plist>
