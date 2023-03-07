@@ -63,7 +63,6 @@ class NotificationService {
         if (notificationResponse.payload != null) {
           final path = notificationResponse.payload.toString();
           RoutesHandler.shared.redirectRoute(path);
-          RoutesHandler.shared.redirectRoute(notificationResponse.payload!);
         }
       },
     );
@@ -98,10 +97,14 @@ class NotificationService {
   Future<void> showNotification(RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
     if (notification != null) {
-      if (message.notification?.android?.imageUrl != null ||
-          message.notification?.apple?.imageUrl != null) {
+      String url = message.notification?.android?.imageUrl ??
+          message.notification?.apple?.imageUrl ??
+          "";
+      if (url.isNotEmpty) {
+        print("this is image");
         imageNotification(message);
       } else {
+        print("this is basic ");
         basicNotification(message);
       }
     }
@@ -144,12 +147,14 @@ class NotificationService {
     final String bigPicturePath = await _downloadAndSaveFile(url, 'bigPicture');
 
     final BigPictureStyleInformation bigPictureStyleInformation =
-        BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
-            largeIcon: FilePathAndroidBitmap(largeIconPath),
-            contentTitle: message.notification?.title ?? "",
-            htmlFormatContentTitle: true,
-            summaryText: message.notification?.body ?? "",
-            htmlFormatSummaryText: true);
+        BigPictureStyleInformation(
+      FilePathAndroidBitmap(bigPicturePath),
+      largeIcon: FilePathAndroidBitmap(largeIconPath),
+      contentTitle: message.notification?.title ?? "",
+      htmlFormatContentTitle: true,
+      summaryText: message.notification?.body ?? "",
+      htmlFormatSummaryText: true,
+    );
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'channelId2',

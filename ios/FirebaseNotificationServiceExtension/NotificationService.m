@@ -20,8 +20,9 @@
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-    
-    self.bestAttemptContent.title = [NSString stringWithFormat:@"%@",
+
+    // Modify the notification content here as you wish
+    self.bestAttemptContent.title = [NSString stringWithFormat:@"%@ [modified]",
     self.bestAttemptContent.title];
 
   // Call FIRMessaging extension helper API.

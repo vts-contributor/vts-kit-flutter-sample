@@ -8,18 +8,16 @@ class RoutesHandler {
     print("Redirect Path - Deep link: " + path);
     try {
       if (path.isNotEmpty) {
-        appRouter.pushNamed(
+        appRouter.navigateNamed(
           path,
           includePrefixMatches: true,
-          onFailure: (failure) {
-            redirectToErrorPage();
-          },
+          onFailure: (failure) => redirectRoute(path),
         );
       } else {
         appRouter.pushNamed('/');
       }
-    } on Exception catch (exception) {
-      print(exception);
+    } catch (e) {
+      print(e);
       redirectToErrorPage();
     }
   }

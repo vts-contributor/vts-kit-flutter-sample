@@ -112,7 +112,7 @@ class _MyMainAppState extends State<MyMainApp> {
         splash: ImagePath.splashIcon,
         centered: true,
         splashIconSize: 300,
-        animationDuration: const Duration(seconds: 3),
+        animationDuration: const Duration(seconds: 2),
         splashTransition: SplashTransition.fadeTransition,
         nextScreen: Obx(() {
           return MaterialApp.router(
