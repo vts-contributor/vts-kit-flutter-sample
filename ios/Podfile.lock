@@ -22,7 +22,7 @@ PODS:
     - GoogleUtilities/Logger (~> 7.8)
   - FirebaseCoreInternal (10.5.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseInstallations (10.5.0):
+  - FirebaseInstallations (10.6.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
@@ -87,7 +87,7 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - PromisesObjC (2.1.1)
+  - PromisesObjC (2.2.0)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -177,7 +177,7 @@ SPEC CHECKSUMS:
   firebase_messaging: 3daef9f9ee5b91de2f282895ec91cc5e5ca78556
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
   FirebaseCoreInternal: e463f41bb935cd049505bf7e9a5bdd7dcea90df6
-  FirebaseInstallations: 935bc4abb6f7a035cab7a0c31cb777b2be3dd254
+  FirebaseInstallations: 13dde135fa0524e15bddb133ccc8465c53a1b3f3
   FirebaseMessaging: e345b219fd15d325f0cf2fef28cb8ce00d851b3f
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_branch_sdk: 193591ad0c4938b925c9068aff19584236c3cf8f
@@ -192,7 +192,7 @@ SPEC CHECKSUMS:
   local_auth: 1740f55d7af0a2e2a8684ce225fe79d8931e808c
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
-  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
   smart_auth: 4bedbc118723912d0e45a07e8ab34039c19e04f2

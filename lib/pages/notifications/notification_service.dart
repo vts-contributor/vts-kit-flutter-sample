@@ -72,7 +72,11 @@ class NotificationService {
     //listen to show notification
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
-        showNotification(message);
+        RemoteNotification? notification = message.notification;
+        AndroidNotification? android = message.notification?.android;
+        if (notification != null && android != null) {
+          showNotification(message);
+        }
       },
     );
     //notification while the app is in the background state
@@ -89,7 +93,7 @@ class NotificationService {
 
   void _redirectNotification(RemoteMessage message) {
     if (message.data.keys.contains(messageDataKey)) {
-      final path = message.data.values.toString();
+      String path = message.data.values.toString();
       RoutesHandler.shared.redirectRoute(path);
     }
   }
@@ -101,10 +105,8 @@ class NotificationService {
           message.notification?.apple?.imageUrl ??
           "";
       if (url.isNotEmpty) {
-        print("this is image");
         imageNotification(message);
       } else {
-        print("this is basic ");
         basicNotification(message);
       }
     }
