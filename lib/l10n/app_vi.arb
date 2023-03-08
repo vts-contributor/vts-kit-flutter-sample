@@ -10,12 +10,14 @@
   "verifyCode": "Mã xác thực",
   "verifyCodeDes": "Vui lòng nhập mã xác thực đã được gửi tới mail của bạn",
   "continueStr": "Tiếp tục",
-  "notReceiveMail": "Bạn chưa nhận được mail ?",
-  "sendAnotherCode": "Gửi lại 1 lần nữa",
+  "notReceiveMail": "Bạn chưa nhận được mail? ",
+  "sendAnotherCode": " Gửi lại 1 lần nữa",
   "resetPassword": "Đặt lại mật khẩu",
   "enterNewPassword": "Nhập mật khẩu mới",
   "reEnterPassword": "Nhập lại mật khẩu",
   "kEmailNullError": "Vui lòng nhập email",
   "kPassNullError": "Vui lòng mật khẩu",
-  "kMatchPassError": "Mật khẩu không khớp"
+  "kMatchPassError": "Mật khẩu không khớp",
+  "kPageNotFound": "Không tìm thấy trang!",
+  "errorText": "Rất tiếc, trang bạn yêu cầu không thể tìm hãy, xin hãy quay lại!"
   }

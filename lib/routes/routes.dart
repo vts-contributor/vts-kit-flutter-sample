@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 import 'package:sample/bottom_nav_bar.dart';
-import 'package:sample/pages/dashboard/dashboard_screen.dart';
+import 'package:sample/pages/errors/error_page.dart';
 import 'package:sample/pages/forgot_password/change_password_screen.dart';
 import 'package:sample/pages/forgot_password/code_form_screen.dart';
 import 'package:sample/pages/forgot_password/email_form_screen.dart';
+import 'package:sample/pages/home/dashboard_page.dart';
+
 import 'package:sample/pages/login/login_screen.dart';
 import 'package:sample/pages/notifications/notification_page.dart';
 import 'package:sample/pages/posts/posts_page.dart';
@@ -17,7 +19,7 @@ import 'package:sample/pages/users/users_page.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(
-      path: 'bottomNavBar',
+      path: 'home',
       page: BottomNavBar,
       children: [
         AutoRoute(
@@ -76,6 +78,11 @@ import 'package:sample/pages/users/users_page.dart';
       path: 'code',
       page: CodeFormScreen,
       name: 'CodeFormRouter',
+    ),
+    AutoRoute(
+      path: 'error',
+      page: ErrorPage,
+      name: 'ErrorPageRouter',
     ),
   ],
 )

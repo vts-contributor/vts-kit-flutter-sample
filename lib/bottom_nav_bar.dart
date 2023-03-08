@@ -4,16 +4,14 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:sample/constants/colors.dart';
 import 'package:sample/routes/routes.gr.dart';
 
-class BottomNavBar extends StatefulWidget {
+class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  @override
   Widget build(BuildContext context) {
+    const double iconSize = 25;
+    const double textSize = 15;
+    Color selectedColor = Theme.of(context).primaryColor;
     return AutoTabsScaffold(
       backgroundColor: AppColors.colorF0F5F9,
       routes: const [
@@ -33,44 +31,59 @@ class _BottomNavBarState extends State<BottomNavBar> {
             onTap: tabsRouter.setActiveIndex,
             items: [
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.home_outlined,
-                  size: 30,
+                  size: iconSize,
                 ),
-                title: const Text('Home'),
+                title: const Text(
+                  'Home',
+                  style: TextStyle(fontSize: textSize),
+                ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.person_outlined,
-                  size: 30,
+                  size: iconSize,
                 ),
-                title: const Text('Users'),
+                title: const Text(
+                  'Users',
+                  style: TextStyle(fontSize: textSize),
+                ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.post_add_outlined,
-                  size: 30,
+                  size: iconSize,
                 ),
-                title: const Text('Post'),
+                title: const Text(
+                  'Post',
+                  style: TextStyle(fontSize: textSize),
+                ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.notifications_outlined,
-                  size: 30,
+                  size: iconSize,
                 ),
-                title: const Text('Noti'),
+                title: const Text(
+                  'Noti',
+                  style: TextStyle(fontSize: textSize),
+                ),
               ),
               SalomonBottomBarItem(
-                selectedColor: AppColors.kPrimaryColor,
+                selectedColor: selectedColor,
                 icon: const Icon(
                   Icons.settings,
-                  size: 30,
+                  size: iconSize,
                 ),
-                title: const Text('Setting'),
+                title: const Text(
+                  'Setting',
+                  style: TextStyle(fontSize: textSize),
+                ),
               ),
             ]);
       },

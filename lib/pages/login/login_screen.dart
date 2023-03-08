@@ -2,18 +2,19 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_core/extensions/extensions.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:provider/provider.dart';
 import 'package:sample/constants/colors.dart';
 import 'package:sample/helper/helper.dart';
-import 'package:sample/provider/localeProvider.dart';
+import 'package:sample/pages/login/login_controller.dart';
 import 'package:sample/routes/routes.gr.dart';
+import 'package:sample/theme/theme.dart';
+import 'package:sample/theme/theme_getx_controller.dart';
 import 'package:sample/widgets/default_button.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,54 +24,39 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  GlobalKey<_LoginScreenState> loginKey = GlobalKey();
   GlobalKey<FormState> _signInKeyForm = GlobalKey();
 
   TextEditingController _emailController = new TextEditingController();
 
   TextEditingController _passwordController = TextEditingController();
+
+  late final LoginController _loginController =
+      LoginController(viewKey: loginKey);
+  final imagePath = "assets/images/viettel_logo.png";
+  final ThemeGetX themeGetX = Get.find<ThemeGetX>(tag: ThemeGetX.tag);
   late StreamSubscription<bool> keyboardSubscription;
   bool _showPass = true;
   bool _visibleKeyboard = false;
   bool _loginTap = false;
+  bool _switchValue = false;
   String message = "";
-
   int? segmentedControlGroupValue = 0;
-  Future<void> _loadCacheLocalization() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      segmentedControlGroupValue =
-          (prefs.getInt('segmentedControlGroupValue') ?? 0);
-      if (segmentedControlGroupValue == 0) {
-        context.read<LocaleProvider>().setLocale(const Locale("vi"));
-      } else {
-        context.read<LocaleProvider>().setLocale(const Locale("en"));
-      }
-    });
-  }
-
-  Future<void> _saveCacheLocalization() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setInt('segmentedControlGroupValue', segmentedControlGroupValue!);
-    });
-  }
+  ///////////////////////
 
   @override
-  void initState() {
+  initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-
-    //NotificationsController.startListeningNotificationEvents();
-    _loadCacheLocalization();
     keyboardSubscription =
         KeyboardVisibilityController().onChange.listen((isVisible) {
       _visibleKeyboard = isVisible;
     });
-    // FirebaseMessaging.instance.getInitialMessage().then((value) =>
-    //     appRouter.push(const BottomNavBar(children: [UsersRouter()])));
+
+    _loginController.initState();
   }
 
   @override
@@ -87,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return KeyboardDismisser(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -95,57 +82,24 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.w,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
                 ),
                 child: SingleChildScrollView(
                   reverse: true,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 20.h,
+                      const SizedBox(
+                        height: 20,
                       ),
-                      CupertinoSlidingSegmentedControl(
-                          backgroundColor: AppColors.colorDADCE6,
-                          thumbColor: AppColors.kPrimaryColor,
-                          groupValue: segmentedControlGroupValue,
-                          children: {
-                            0: Container(
-                              child: Text(
-                                "Tiếng Việt",
-                                style: TextStyle(
-                                    color: segmentedControlGroupValue == 1
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            1: Container(
-                              child: Text(
-                                "English",
-                                style: TextStyle(
-                                    color: segmentedControlGroupValue == 1
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          },
-                          onValueChanged: (i) async {
-                            segmentedControlGroupValue = i;
-                            if (segmentedControlGroupValue == 0) {
-                              await _saveCacheLocalization();
-                              context
-                                  .read<LocaleProvider>()
-                                  .setLocale(const Locale("vi"));
-                            } else if (segmentedControlGroupValue == 1) {
-                              await _saveCacheLocalization();
-                              context
-                                  .read<LocaleProvider>()
-                                  .setLocale(const Locale("en"));
-                            }
-                          }),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          changeThemeBtn(context),
+                          changeLanguageBtn(context),
+                        ],
+                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 7,
                       ),
@@ -167,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10.h),
+                      const SizedBox(height: 10),
                       Container(
                         alignment: Alignment.centerRight,
                         child: InkWell(
@@ -183,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                       ),
-                      SizedBox(height: 20.h),
+                      const SizedBox(height: 20),
                       DefaultButton(
                           text:
                               AppLocalizations.of(context)!.logIn.toUpperCase(),
@@ -191,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           press: () {
                             context.router.replaceAll([const BottomNavBar()]);
                           }),
-                      SizedBox(height: 10.h),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
@@ -204,9 +158,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget buildLogo() {
     return Center(
       child: Image.asset(
-        'assets/images/viettel_logo.png',
+        imagePath,
         fit: BoxFit.fitWidth,
-        height: 150.h,
+        height: 150,
       ),
     );
   }
@@ -222,18 +176,18 @@ class _LoginScreenState extends State<LoginScreen> {
             controllerText: _emailController,
             prefixIcon: Icon(
               Icons.mail,
-              color: AppColors.colorDD474C,
+              color: Theme.of(context).primaryColor,
             ),
           ),
-          SizedBox(
-            height: 10.h,
+          const SizedBox(
+            height: 10,
           ),
           Helpers.shared.textFieldPassword(context,
               controllerText: _passwordController,
               hint: AppLocalizations.of(context)!.password,
               prefixIcon: Icon(
                 Icons.key,
-                color: AppColors.colorDD474C,
+                color: Theme.of(context).primaryColor,
               ),
               suffixIcon: InkWell(
                 child: Padding(
@@ -241,10 +195,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: _showPass
                       ? Icon(
                           Icons.visibility,
-                          color: AppColors.colorDD474C,
+                          color: Theme.of(context).primaryColor,
                         )
                       : Icon(Icons.visibility_off,
-                          color: AppColors.colorDD474C),
+                          color: Theme.of(context).primaryColor),
                 ),
                 onTap: () {
                   setState(() {
@@ -255,6 +209,87 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: _showPass),
         ],
       ),
+    );
+  }
+
+  Widget changeLanguageBtn(BuildContext context) {
+    return Obx(() {
+      String language =
+          _loginController.languageGetX.localeGetx.value.toString();
+      if (language == "vi") {
+        segmentedControlGroupValue = 0;
+      } else {
+        segmentedControlGroupValue = 1;
+      }
+      return CupertinoSlidingSegmentedControl(
+        backgroundColor: AppColors.colorDADCE6,
+        thumbColor: Theme.of(context).primaryColor,
+        groupValue: segmentedControlGroupValue,
+        children: {
+          0: Text(
+            "Tiếng Việt",
+            style: TextStyle(
+                color: segmentedControlGroupValue == 1
+                    ? Colors.black
+                    : Colors.white,
+                fontWeight: FontWeight.w500),
+          ),
+          1: Text(
+            "English",
+            style: TextStyle(
+                color: segmentedControlGroupValue == 1
+                    ? Colors.white
+                    : Colors.black,
+                fontWeight: FontWeight.w500),
+          ),
+        },
+        onValueChanged: (i) async {
+          segmentedControlGroupValue = i;
+
+          if (segmentedControlGroupValue == 0) {
+            _loginController.languageGetX.localeGetx.value = const Locale('vi');
+            _loginController.saveCacheToDisk();
+          } else if (segmentedControlGroupValue == 1) {
+            _loginController.languageGetX.localeGetx.value = const Locale('en');
+            _loginController.saveCacheToDisk();
+          }
+        },
+      );
+    });
+  }
+
+  Widget changeThemeBtn(BuildContext context) {
+    return Obx(
+      () {
+        ThemeData? theme = themeGetX.themeGetx.value;
+        if (theme.isNotNull) {
+          if (theme == primaryTheme) {
+            _switchValue = true;
+          } else if (theme == secondaryTheme) {
+            _switchValue = false;
+          }
+        } else {
+          _switchValue = true;
+        }
+        return CupertinoSwitch(
+          activeColor: AppColors.kPrimaryColor,
+          //thumbColor: CupertinoColors.activeOrange,
+          trackColor: AppColors.color1f89de,
+          value: _switchValue,
+          onChanged: (value) async {
+            setState(() {
+              _switchValue = value;
+            });
+            if (value == true) {
+              themeGetX.themeGetx.value = primaryTheme;
+              _loginController.toggleSelectTheme("primary_theme");
+            } else {
+              themeGetX.themeGetx.value = secondaryTheme;
+              _loginController.toggleSelectTheme("secondary_theme");
+            }
+          },
+        );
+      },
     );
   }
 }

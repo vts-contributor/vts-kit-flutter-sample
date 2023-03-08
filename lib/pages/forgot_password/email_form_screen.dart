@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:sample/constants/colors.dart';
 import 'package:sample/helper/helper.dart';
 import 'package:sample/routes/routes.gr.dart';
 import 'package:sample/widgets/default_button.dart';
@@ -20,6 +19,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
   TextEditingController _emailController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print(context.router.currentPath);
     return KeyboardDismisser(
       child: Scaffold(
         appBar: AppBar(),
@@ -31,7 +31,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
             child: SingleChildScrollView(
                 child: Column(
               children: [
-                SizedBox(height: 10.h),
+                const SizedBox(height: 10),
                 Text(
                   AppLocalizations.of(context)!.forgetPassword,
                   style: const TextStyle(
@@ -40,14 +40,14 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 10.h),
+                const SizedBox(height: 10),
                 Text(
                   AppLocalizations.of(context)!.forgetPasswordDes,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 5.h),
+                const SizedBox(height: 5),
                 emailTextFrom(context),
-                SizedBox(height: 20.h),
+                const SizedBox(height: 20),
                 DefaultButton(
                   width: double.infinity,
                   text: AppLocalizations.of(context)!.send.toUpperCase(),
@@ -73,7 +73,7 @@ class _EmailFormScreenState extends State<EmailFormScreen> {
             controllerText: _emailController,
             prefixIcon: Icon(
               Icons.mail,
-              color: AppColors.kPrimaryColor,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ],

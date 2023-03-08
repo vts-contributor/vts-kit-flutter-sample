@@ -6,6 +6,7 @@
 //
 
 #import "NotificationService.h"
+#import "FirebaseMessaging.h"
 @import Firebase;
 
 @interface NotificationService ()
@@ -18,15 +19,13 @@
 @implementation NotificationService
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
-    self.contentHandler = contentHandler;
-    self.bestAttemptContent = [request.content mutableCopy];
-    
-    self.bestAttemptContent.title = [NSString stringWithFormat:@"%@",
-    self.bestAttemptContent.title];
+     self.contentHandler = contentHandler;
+     self.bestAttemptContent = [request.content mutableCopy];
 
-  // Call FIRMessaging extension helper API.
-  [[FIRMessaging extensionHelper] populateNotificationContent:self.bestAttemptContent
-                                            withContentHandler:contentHandler];
+
+//Call FIRMessaging extension helper API.
+   [[FIRMessaging extensionHelper] populateNotificationContent:self.bestAttemptContent
+                                             withContentHandler:contentHandler];
 }
 
 - (void)serviceExtensionTimeWillExpire {

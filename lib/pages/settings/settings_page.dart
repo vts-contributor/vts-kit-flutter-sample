@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:sample/routes/routes.gr.dart';
 import 'package:sample/widgets/default_button.dart';
@@ -16,13 +15,14 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    print("path: " + context.router.currentPath);
     return Scaffold(
       body: SafeArea(
           child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20.w,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

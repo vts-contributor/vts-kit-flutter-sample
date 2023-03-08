@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sample/main.dart';
-import 'package:sample/routes/routes.gr.dart';
+import 'package:sample/routes/routes_handler.dart';
 
-const String notificationPage = "notification_page";
-const String dashboardPage = "dashboard_page";
 const String messageDataKey = "click_action";
 
 class NotificationService {
@@ -47,13 +41,8 @@ class NotificationService {
     }
   }
 
-  Future<void> saveToken(String token) async {
-    await FirebaseFirestore.instance.collection("UserTokens").doc("User1").set({
-      'token': token,
-    });
-  }
-
   Future<void> initNotification() async {
+    //icon notification android
     var initializationSettingsAndroid =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -67,48 +56,27 @@ class NotificationService {
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
 
-    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-        await notificationsPlugin.getNotificationAppLaunchDetails();
-
-    final didNotificationLaunchApp =
-        notificationAppLaunchDetails?.didNotificationLaunchApp ?? false;
-
-    if (didNotificationLaunchApp) {
-      //_handleMessage();
-    } else {
-      await notificationsPlugin.initialize(
-        initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse notificationResponse) async {
-          if (notificationResponse.payload != null) {
-            switch (notificationResponse.payload) {
-              case notificationPage:
-                _handleMessage(
-                    const BottomNavBar(children: [NotificationsRouter()]));
-                break;
-              case dashboardPage:
-                _handleMessage(
-                    const BottomNavBar(children: [DashboardRouter()]));
-                break;
-              default:
-                _handleMessage(const LoginRouter());
-            }
-          }
-        },
-      );
-    }
+    await notificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) async {
+        if (notificationResponse.payload != null) {
+          final path = notificationResponse.payload.toString();
+          RoutesHandler.shared.redirectRoute(path);
+        }
+      },
+    );
   }
 
   Future<void> initInfo() async {
+    //listen to show notification
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
-        print("messageId: " + message.messageId.toString());
-        print("messageTitle: " + message.notification!.title.toString());
-        print("messageContent: " + message.notification!.body.toString());
-        if (message.data.keys.contains(messageDataKey)) {
-          print("This is a payload: " + message.data.values.toString());
+        RemoteNotification? notification = message.notification;
+        AndroidNotification? android = message.notification?.android;
+        if (notification != null && android != null) {
+          showNotification(message);
         }
-        showNotification(message);
       },
     );
     //notification while the app is in the background state
@@ -125,23 +93,18 @@ class NotificationService {
 
   void _redirectNotification(RemoteMessage message) {
     if (message.data.keys.contains(messageDataKey)) {
-      if (message.data.values.contains(dashboardPage)) {
-        _handleMessage(const BottomNavBar(children: [DashboardRouter()]));
-      } else if (message.data.values.contains(notificationPage)) {
-        _handleMessage(const BottomNavBar(children: [NotificationsRouter()]));
-      }
+      String path = message.data.values.toString();
+      RoutesHandler.shared.redirectRoute(path);
     }
-  }
-
-  void _handleMessage(PageRouteInfo<dynamic> route) {
-    appRouter.push(route);
   }
 
   Future<void> showNotification(RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
     if (notification != null) {
-      if (message.notification?.android?.imageUrl != null ||
-          message.notification?.apple?.imageUrl != null) {
+      String url = message.notification?.android?.imageUrl ??
+          message.notification?.apple?.imageUrl ??
+          "";
+      if (url.isNotEmpty) {
         imageNotification(message);
       } else {
         basicNotification(message);
@@ -149,9 +112,7 @@ class NotificationService {
     }
   }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//Show basic notification with title and text
   void basicNotification(RemoteMessage message) async {
     final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
@@ -178,6 +139,7 @@ class NotificationService {
     );
   }
 
+//Show notification with image
   Future<void> imageNotification(RemoteMessage message) async {
     final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     final url = message.notification?.android?.imageUrl ??
@@ -187,12 +149,14 @@ class NotificationService {
     final String bigPicturePath = await _downloadAndSaveFile(url, 'bigPicture');
 
     final BigPictureStyleInformation bigPictureStyleInformation =
-        BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
-            largeIcon: FilePathAndroidBitmap(largeIconPath),
-            contentTitle: message.notification?.title ?? "",
-            htmlFormatContentTitle: true,
-            summaryText: message.notification?.body ?? "",
-            htmlFormatSummaryText: true);
+        BigPictureStyleInformation(
+      FilePathAndroidBitmap(bigPicturePath),
+      largeIcon: FilePathAndroidBitmap(largeIconPath),
+      contentTitle: message.notification?.title ?? "",
+      htmlFormatContentTitle: true,
+      summaryText: message.notification?.body ?? "",
+      htmlFormatSummaryText: true,
+    );
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'channelId2',
@@ -225,6 +189,7 @@ class NotificationService {
     );
   }
 
+//Download and save image file
   Future<String> _downloadAndSaveFile(String url, String fileName) async {
     final Directory directory = await getApplicationDocumentsDirectory();
     final String filePath = '${directory.path}/$fileName';
